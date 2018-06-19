@@ -36,21 +36,19 @@ const DEFAULT_CONFIG = {
 }
 export class FacegramConfig {
   jsonConfig: any
-  constructor () {
-    // If config file doesn't exist, create one
-    if (!fs.existsSync(CONFIG_FILE_PATH)) {
-      this.writeConfig(DEFAULT_CONFIG)
-      log.info('config', 'Written default config to ' + CONFIG_FILE_PATH)
-      process.exit(0)
-    }
 
+  readConfig() {
     // Read config
     this.jsonConfig = JSON.parse(fs.readFileSync(CONFIG_FILE_PATH, 'utf-8'))
     if (this.jsonConfig.logLevel) log.level = this.jsonConfig.logLevel
     if (process.env.LOG_LEVEL) log.level = process.env.LOG_LEVEL
   }
 
-  getConfigForServiceName (name: string) {
+  configExists() {
+    return fs.existsSync(CONFIG_FILE_PATH)
+  }
+
+  getConfigForServiceName(name: string) {
     return this.jsonConfig['services'][name]
   }
 
@@ -58,11 +56,11 @@ export class FacegramConfig {
     return this.jsonConfig.loadedServices
   }
 
-  getThreadConnections (): IFacegramConnection[] {
+  getThreadConnections(): IFacegramConnection[] {
     return this.jsonConfig['serviceConnections']
   }
 
-  writeConfig (config: any) {
+  writeConfig(config: any) {
     fs.writeFileSync(CONFIG_FILE_PATH, JSON.stringify(config, null, 2))
   }
 }
