@@ -26,7 +26,7 @@ export default class PluginManager {
       }
       const inst = new PluginInstance(this, pc)
       this.loadedPlugins.push(inst)
-      await inst.initialize()
+      await inst.initialize(pkg.default)
     }
   }
 }
