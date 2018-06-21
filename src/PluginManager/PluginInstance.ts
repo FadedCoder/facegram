@@ -4,6 +4,10 @@ import Plugin from './Plugin'
 import PluginContext from './PluginContext'
 import log from 'npmlog'
 import PluginConfig from './PluginConfig';
+
+type PluginConstructor = {
+  new (ctx: PluginContext<any>): Plugin<any>,
+}
 /*
 PluginInstance is used by the core to manage the plugin.
 */
@@ -15,9 +19,7 @@ export default class PluginInstance {
   /**
    * Initializes the plugin using a constructor.
    */
-  async initialize(pluginConstructor: {
-    new (ctx: PluginContext<any>): Plugin<any>
-  }) {
+  async initialize(pluginConstructor: PluginConstructor) {
     this.pluginContext = new PluginContext(this)
     this.state = PluginState.INITIALIZING
     try {
