@@ -29,4 +29,10 @@ export default class PluginManager {
       await inst.initialize(pkg.default)
     }
   }
+
+  async disposeAllPlugins() {
+      for(const p of this.loadedPlugins) {
+          await p.dispose();
+      }
+  }
 }

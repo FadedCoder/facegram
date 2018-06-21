@@ -37,11 +37,30 @@ export default class PluginInstance {
     }
     try {
       await this.pluginObject.initialize()
+      this.state = PluginState.RUNNING
     } catch (e) {
       this.state = PluginState.ERROR
       log.error(
         'plugin',
         `An error has occured while initializing plugin ${
+          this.config.name
+        } (from package ${this.config.package})`,
+        e,
+      )
+      return
+    }
+  }
+
+  async dispose() {
+    try {
+      this.state = PluginState.DISPOSING
+      await this.pluginObject.dispose()
+      this.state = PluginState.DISPOSED
+    } catch (e) {
+      this.state = PluginState.ERROR
+      log.error(
+        'plugin',
+        `An error has occured while disposing plugin ${
           this.config.name
         } (from package ${this.config.package})`,
         e,

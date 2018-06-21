@@ -3,13 +3,13 @@ import { IFacegramMessage } from './models'
 import { Subject } from 'rxjs'
 import { FacegramService } from './services/Service'
 import { ThreadConnectionsManager } from './ThreadConnectionsManager'
-import { ServiceManager } from './ServiceManager'
 import { ExchangeManager } from './ExchangeManager'
+import PluginManager from './PluginManager/PluginManager';
 
 export class Facegram {
   config: FacegramConfig
   exchangeManager: ExchangeManager
-  serviceManager = new ServiceManager()
+  pluginManager = new PluginManager()
   threadConnectionsManager: ThreadConnectionsManager
   incomingMessagePublisher: Subject<IFacegramMessage>
 
