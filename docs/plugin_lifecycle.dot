@@ -1,0 +1,13 @@
+digraph Plugin_lifecycle {
+    graph [fontsize=10 fontname="Verdana" compound=true];
+    node [shape=record fontsize=10 fontname="Verdana"];
+    subgraph cluster0 {
+        "READY" -> "INITIALIZING"
+        "INITIALIZING" -> "RUNNING"
+        "RUNNING" -> "DISPOSING"
+        "DISPOSING" -> "DISPOSED"
+    }
+    "INITIALIZING" -> "ERROR" [style=dashed, color=grey]
+    "RUNNING" -> "ERROR" [style=dashed, color=grey]
+    "DISPOSING" -> "ERROR" [style=dashed, color=grey]
+}
