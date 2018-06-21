@@ -3,10 +3,10 @@ import PluginManager from './PluginManager'
 import Plugin from './Plugin'
 import PluginContext from './PluginContext'
 import log from 'npmlog'
-import PluginConfig from './PluginConfig';
+import PluginConfig from './PluginConfig'
 
 type PluginConstructor = {
-  new (ctx: PluginContext<any>): Plugin<any>,
+  new (ctx: PluginContext<any>): Plugin<any>
 }
 /*
 PluginInstance is used by the core to manage the plugin.
@@ -28,7 +28,9 @@ export default class PluginInstance {
       this.state = PluginState.ERROR
       log.error(
         'plugin',
-        `An error has occured while constructing plugin ${this.config.name} (from package ${this.config.package})`,
+        `An error has occured while constructing plugin ${
+          this.config.name
+        } (from package ${this.config.package})`,
         e,
       )
       return
@@ -39,7 +41,9 @@ export default class PluginInstance {
       this.state = PluginState.ERROR
       log.error(
         'plugin',
-        `An error has occured while initializing plugin ${this.config.name} (from package ${this.config.package})`,
+        `An error has occured while initializing plugin ${
+          this.config.name
+        } (from package ${this.config.package})`,
         e,
       )
       return
