@@ -18,7 +18,7 @@ export default class PluginManager {
       try {
         pkg = require(pc.package)
         if (typeof pkg.default !== 'function') {
-          throw new Error("Plugin's default export must be a constructor")
+          throw new Error(`Plugin's default export must be a constructor`)
         }
       } catch (e) {
         log.error(`Failed to load plugin package ${pc.package}`, e)
